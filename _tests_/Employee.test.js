@@ -20,3 +20,23 @@ test("get employee's id", () => {
 
     expect(employee.getId()).toEqual(expect.stringContaining(employee.id.toString()));
 });
+
+test("get employee's email", () => {
+    const employee = new Employee('Arlo', "stensingk@gmail.com");
+
+    expect(employee.getEmail()).toEqual(expect.stringContaining(employee.email.toString()));
+});
+
+test("get employee's email", () => {
+    const employee = new Employee('Arlo', "stensingk@gmail.com");
+
+    expect(employee.getEmail()).toEqual(expect.stringContaining(employee.email.toString()));
+});
+
+test("get employee's role", () => {
+    const employee = new Employee('Arlo', "stensingk@gmail.com");
+
+    expect(employee.getRole()).toEqual(
+        (expect.any(Object))
+    );;
+})
