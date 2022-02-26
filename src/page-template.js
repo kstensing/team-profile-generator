@@ -22,7 +22,12 @@ const generateTeam = teamArr => {
           <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://github.com/${
             header.github
           }">GitHub</a>
-          <a href="https://kstensing.github.io/fantastic-four/" target="_blank" rel="noopener noreferrer"></a>
+
+
+          <a href="https://github.com/${usernameLink}" target="_blank" rel="noopener noreferrer"></a>
+
+          <a href="mailto:stensingk@gmail.com" target="_blank" rel="noopener noreferrer">stensingk@gmail.com</a>
+
         </nav>
       </div>
     </header>
