@@ -9,6 +9,11 @@ test('creates an engineer object', () => {
     expect(engineer.github).toEqual(expect.stringContaining(engineer.github.toString()));
 });
 
+test("get engineer's github", () => {
+    const engineer = new Engineer('Arlo', "stensingk@gmail.com");
+
+    expect(engineer.getGithub()).toEqual(expect.stringContaining(engineer.github.toString()));
+});
 
 test('overrides the role to engineer', () => {
     const engineer = new Engineer('Arlo', "stensingk@gmail.com");
