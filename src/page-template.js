@@ -1,12 +1,7 @@
         
 const generateEmployee = employeesArr => {
   return `
-  
-  <section class="my-3" id="portfolio">
-    <h2 class="text-dark bg-primary p-2 display-inline-block">Work</h2>
-    <div class="flex-row justify-space-between">
-    ${projectsArr
-      .filter(({ feature }) => feature)
+    ${employeesArr
       .map(({ name, description, languages, link }) => {
         return `
         <div class="col-12 mb-2 bg-dark text-light p-3">
@@ -18,56 +13,66 @@ const generateEmployee = employeesArr => {
           <p>${description}</p>
           <a href="${link}" class="btn"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
         </div>
-      `;
-        <section class="
-          <a class="ml-2 my-1 px-2 py-1 bg-secondary text-dark" href="https://github.com/${
-            header.github
-          }">GitHub</a>
 
-
-          <a href="https://github.com/${usernameLink}" target="_blank" rel="noopener noreferrer"></a>
-
-          <a href="mailto:stensingk@gmail.com" target="_blank" rel="noopener noreferrer">stensingk@gmail.com</a>
-
-
-    `
-}
-
-
-
-
+        <article class="tile is-child box">
+        <p class="title has-text-link-dark">${name}</p>
+        <p class="subtitle has-text-link-dark">${role}</p>
+        <div class="card">
+            <header class="card">
+                <p class="card-header-title">
+                    ID:
+                </p>
+                <p class="card-header-title">
+                    Email:
+                    <a href="mailto:stensingk@gmail.com" target="_blank" rel="noopener noreferrer">stensingk@gmail.com</a>
+                </p>
+                <p class="card-header-title">
+                    Office Number/GitHub/School
+                    <a href="https://github.com/${usernameLink}" target="_blank" rel="noopener noreferrer"></a>
+                </p>
+            </header>
+        </div>
+    </article>
+    `;
+      })
+      .join('')}
+      `  
+};
+      
 
 //creates the team information
 const generateTeam = teamArr => {
     return `
     <!DOCTYPE html>
     <html lang="en">
+    
     <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Team Profiles</title>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-      <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Team Profiles</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="stylesheet" href="style.css">
     </head>
-
     
     <body>
-    <header>
-      <div class="container flex-row justify-space-between align-center py-3">
-        <h1 class="page-title text-secondary bg-dark py-2 px-3">${header.name}</h1>
-        <nav class="flex-row">
-        </nav>
-        </div>
-      </header>
-      <main class="container my-5">
+        <header class="has-text-centered block">
+            <p class="title is-1 has-text-link-dark">Team Information</p>
+        </header>
+    
+        <div class="container is fluid is-flex is-justify-content-center">
+            <div class="tile is-flex-wrap-wrap">
         ${generateEmployee(employees)}
         
-      </main>
-      <footer class="container text-center py-3">
-        <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${header.name}</h3>
-      </footer>
+    </div>
+    </div>
+    </div>
+    </div>
+    <footer class="has-text-centered">
+        <h3 class="has-text-link-dark">🤝 ${new Date().getFullYear()}</h3>
+    </footer>
     </body>
+
     </html>
-        `
-}        
+    `;
+};        
