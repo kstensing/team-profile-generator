@@ -1,7 +1,7 @@
 const Intern = require('../lib/Intern.js');
 
 test('creates an intern object', () => {
-    const intern = new Intern('arlo', 'stensingk@gmail.com');
+    const intern = new Intern('arlo', 'stensingk@gmail.com', 7, 'bestSchool');
 
     expect(intern.name).toBe('arlo');
     expect(intern.email).toBe('stensingk@gmail.com');
@@ -10,13 +10,13 @@ test('creates an intern object', () => {
 });
 
 test("get intern's school", () => {
-    const intern = new Intern('Arlo', "stensingk@gmail.com");
+    const intern = new Intern('arlo', 'stensingk@gmail.com', 7, 'bestSchool');
 
     expect(intern.getSchool()).toEqual(expect.stringContaining(intern.school.toString()));
 });
 
 test('overrides the role to intern', () => {
-    const intern = new Intern('Arlo', "stensingk@gmail.com");
+    const intern = new Intern('arlo', 'stensingk@gmail.com', 7, 'bestSchool');
     const spy = jest.spyOn(intern, "getRole").mockImplementation(() => 'Intern');
 
     expect(intern.getRole()).toBe("Intern");
