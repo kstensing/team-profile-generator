@@ -1,4 +1,4 @@
-        
+      
 const generateEmployee = employeesArr => {
   return `
     ${employeesArr
@@ -41,7 +41,7 @@ const generateEmployee = employeesArr => {
       
 
 //creates the team information
-const generateTeam = teamArr => {
+const generateTeam = () => {
     return `
     <!DOCTYPE html>
     <html lang="en">
