@@ -156,7 +156,7 @@ const addIntern = (employee) => {
         }, ])
         .then(data => {
             const { name, email, id } = employee
-            let temp = new Intern(name, email, id, data.github);
+            let temp = new Intern(name, email, id, data.school);
             employees.push(temp);
             start();
         })

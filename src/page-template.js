@@ -1,5 +1,7 @@
 const Engineer = require("../lib/Engineer");
 const Manager = require("../lib/Manager");
+const Intern = require("../lib/Intern");
+
       
 const generateManager = employee => {
         return `
@@ -12,7 +14,7 @@ const generateManager = employee => {
                     ID: ${employee.id}
                 </p>
                 <p class="card-header-title">
-                    Email:
+                    Email:&nbsp
                     <a href="mailto: ${employee.email}" target="_blank" rel="noopener noreferrer">${employee.email}</a>
                 </p>
                 <p class="card-header-title">
@@ -35,17 +37,39 @@ const generateEngineer = employee => {
                     ID: ${employee.id}
                 </p>
                 <p class="card-header-title">
-                    Email:
+                    Email:&nbsp
                     <a href="mailto: ${employee.email}" target="_blank" rel="noopener noreferrer"> ${employee.email}</a>
                 </p>
                 <p class="card-header-title">
-                    School:
-                    <a href="https://github.com/${employee.github}" target="_blank" rel="noopener noreferrer"></a>
+                    GitHub:&nbsp<a href="https://github.com/${employee.github}" target="_blank" rel="noopener noreferrer">${employee.github}</a>
                 </p>
             </header>
         </div>
     </article>
       `;  
+};
+
+const generateIntern = employee => {
+  return `
+  <article class="tile is-child box">
+  <p class="title has-text-link-dark">${employee.name}</p>
+  <p class="subtitle has-text-link-dark">${employee.getRole()}</p>
+  <div class="card">
+      <header class="card">
+          <p class="card-header-title">
+              ID: ${employee.id}
+          </p>
+          <p class="card-header-title">
+              Email:&nbsp
+              <a href="mailto: ${employee.email}" target="_blank" rel="noopener noreferrer">${employee.email}</a>
+          </p>
+          <p class="card-header-title">
+              ${employee.getSchool()}
+          </p>
+      </header>
+  </div>
+</article>
+`; 
 };
 
 const chooseTeam = (employees) => {
@@ -55,7 +79,9 @@ const chooseTeam = (employees) => {
         team += generateManager(employee);
       } else if (employee instanceof Engineer){
         team += generateEngineer(employee);
-      } 
+      } else if (employee instanceof Intern){
+        team += generateIntern(employee);
+      }
     });
   return team
 };
