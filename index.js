@@ -4,90 +4,124 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generateTeam = require('./src/page-template');
 
-const addManager = () => {
-    return inquirer.prompt([{
-            type: 'input',
-            name: 'managerName',
-            message: "What is the team manager's name?",
-            validate: managerNameInput => {
-                if (managerNameInput) {
-                    return true;
-                } else {
-                    console.log('Please enter a name.');
-                    return false;
+
+var employees = [];
+
+const addManager = (employee) => {
+    return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'office',
+                message: "What is the team manager's office number?",
+                validate: managerOfficeInput => {
+                    if (managerOfficeInput) {
+                        return true;
+                    } else {
+                        console.log('Please enter an office number.');
+                        return false;
+                    }
                 }
             },
-        },
-        {
-            type: 'input',
-            name: 'managerEmail',
-            message: "What is the team manager's email?",
-            validate: managerEmailInput => {
-                if (managerEmailInput) {
-                    return true;
-                } else {
-                    console.log('Please enter an Email address.');
-                    return false;
-                }
+        ])
+        .then(data => {
+            const {name, email, id} = employee
+            let temp = new Manager(name, email, id, data.office);
+            employees.push(temp);
+            start();
+        })
+    };
+
+    const addEmployee = () => {
+            // if (!teamData.employees) {
+            //     teamData.employees = [];
+            // }
+            return inquirer
+                .prompt([{
+                            name: "role",
+                            type: "list",
+                            message: "Which type of team member would you like to add?",
+                            choices: ["Manager", "Engineer", "Intern", "I don't want to add any more team members"],
+                        },
+                        {
+                        type: 'input',
+                        name: 'name',
+                        message: "What is the employee's name?",
+                        validate: nameInput => {
+                            if (nameInput) {
+                                return true;
+                            } else {
+                                console.log('Please enter a name.');
+                                return false;
+                            }
+                        },
+                    }, {
+                        type: 'input',
+                        name: 'email',
+                        message: "What is the employee's email?",
+                        validate: emailInput => {
+                            if (emailInput) {
+                                return true;
+                            } else {
+                                console.log('Please enter an Email address.');
+                                return false;
+                            }
+                        }
+                    }, {
+                        type: 'input',
+                        name: 'id',
+                        message: "What is the employee's id?",
+                        validate: idInput => {
+                            if (idInput) {
+                                return true;
+                            } else {
+                                console.log('Please enter an ID.');
+                                return false;
+                            }
+                        }
+                    }
+                    ])
+        .then(employee => {
+            switch (employee.role) {
+                case "Manager":
+                   addManager(employee);
+                    break;
+                case "Engineer":
+                    addEngineer();
+                    break;
+                case "Intern":
+                    addIntern();
+                    break;
             }
-        },
-        {
-            type: 'input',
-            name: 'managerId',
-            message: "What is the team manager's id?",
-            validate: managerIdInput => {
-                if (managerIdInput) {
-                    return true;
-                } else {
-                    console.log('Please enter an ID.');
-                    return false;
-                }
-            }
-        },
-        {
-            type: 'input',
-            name: 'managerOffice',
-            message: "What is the team manager's office number?",
-            validate: managerOfficeInput => {
-                if (managerOfficeInput) {
-                    return true;
-                } else {
-                    console.log('Please enter an office number.');
-                    return false;
-                }
-            }
-        },
-    ])
-    .then(data => {
-        
-        console.log(data);
-        this.manager = new Manager(data.managerName, data.managerEmail, data.managerId, data.manager.officeNumber);
-        console.log(this.manager);
-    })
+        });
 };
-//add employee
-addManager();
-
-// const addEmployee = () => {
-//     if (!teamData.employees) {
-//         teamData.employees = [];
-//     }
-// return inquirer
-//     .prompt([{
-//         name: "employeeType",
-//         type: "list",
-//         message: "Which type of team member would you like to add?",
-//         choices: ["Engineer", "Intern", "I don't want to add any more team members"],
-//     }, ])
-//     .then(employeeData => {
-//         teamData.employees.push(employeeData);
-         
-//     });
-// };
 
 
+const start = () => {
+    return inquirer
+        .prompt([
+            {
+                name: "addEmployee",
+                type: "list",
+                message: "Would you like to add an employee or quit?",
+                choices: ["Add Employee", "Quit"],
+            },
+        ])
+        .then( answer => {
+            if (answer.addEmployee === "Add Employee") {
+                addEmployee();
+            } else {
+                console.log("testing employees arry: ", employees);
+                
+                writeToFile(generateTeam(employees));
+            }
+        }
+            
+        )
+    }
 
+    start();
 // //engineer options
 // inquirer
 //     .prompt([{
@@ -202,19 +236,18 @@ addManager();
 //         },
 //     ]);
 
-//     const writeToFile = (fileName, data) => {
-//     return new Promise((resolve, reject) => {
-//         fs.createFile('./dist/index.html', fileName, err => {
-//             if (err) {
-//                 reject(err);
-//                 return;
-//             }
-//             resolve({
-//                 ok: true, 
-//                 message: 'Check out your team!'
-//             });
-//         });
-//     });
-// };
-
-
+    const writeToFile = (data) => {
+        console.log("testing this")
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', data, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve({
+                ok: true, 
+                message: 'Check out your team!'
+            });
+        });
+    });
+};

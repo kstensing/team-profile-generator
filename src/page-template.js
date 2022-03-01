@@ -1,22 +1,21 @@
       
-const generateEmployee = employeesArr => {
+const generateEmployee = employees => {
+  console.log("Testing Employees arry: ", employees);
   return `
-    ${employeesArr
-      .map(({ name, description, languages, link }) => {
+    ${employees
+      .map(({ name, email, id, getRole}) => {
         return `
         <div class="col-12 mb-2 bg-dark text-light p-3">
-          <h3 class="portfolio-item-title text-light">${name}</h3>
+          <h3 class="portfolio-item-title text-light">${getRole()}</h3>
           <h5 class="portfolio-languages">
-            Built With:
-            ${languages.map(language => language).join(',')}
           </h5>
-          <p>${description}</p>
-          <a href="${link}" class="btn"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
+          <p></p>
+          <a href="" class="btn"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
         </div>
 
         <article class="tile is-child box">
         <p class="title has-text-link-dark">${name}</p>
-        <p class="subtitle has-text-link-dark">${role}</p>
+        <p class="subtitle has-text-link-dark"></p>
         <div class="card">
             <header class="card">
                 <p class="card-header-title">
@@ -28,7 +27,7 @@ const generateEmployee = employeesArr => {
                 </p>
                 <p class="card-header-title">
                     Office Number/GitHub/School
-                    <a href="https://github.com/${usernameLink}" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer"></a>
                 </p>
             </header>
         </div>
@@ -41,7 +40,7 @@ const generateEmployee = employeesArr => {
       
 
 //creates the team information
-const generateTeam = () => {
+const generateTeam = (employees) => {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -75,4 +74,7 @@ const generateTeam = () => {
 
     </html>
     `;
-};        
+};
+
+
+module.exports = generateTeam;
