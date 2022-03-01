@@ -1,46 +1,68 @@
+const Engineer = require("../lib/Engineer");
+const Manager = require("../lib/Manager");
       
-const generateEmployee = employees => {
-  console.log("Testing Employees arry: ", employees);
-  return `
-    ${employees
-      .map(({ name, email, id, getRole}) => {
+const generateManager = employee => {
         return `
-        <div class="col-12 mb-2 bg-dark text-light p-3">
-          <h3 class="portfolio-item-title text-light">${getRole()}</h3>
-          <h5 class="portfolio-languages">
-          </h5>
-          <p></p>
-          <a href="" class="btn"><i class="fab fa-github mr-2"></i>View Project on GitHub</a>
-        </div>
-
         <article class="tile is-child box">
-        <p class="title has-text-link-dark">${name}</p>
-        <p class="subtitle has-text-link-dark"></p>
+        <p class="title has-text-link-dark">${employee.name}</p>
+        <p class="subtitle has-text-link-dark">${employee.getRole()}</p>
         <div class="card">
             <header class="card">
                 <p class="card-header-title">
-                    ID:
+                    ID: ${employee.id}
                 </p>
                 <p class="card-header-title">
                     Email:
-                    <a href="mailto:stensingk@gmail.com" target="_blank" rel="noopener noreferrer">stensingk@gmail.com</a>
+                    <a href="mailto: ${employee.email}" target="_blank" rel="noopener noreferrer">${employee.email}</a>
                 </p>
                 <p class="card-header-title">
-                    Office Number/GitHub/School
-                    <a href="https://github.com/" target="_blank" rel="noopener noreferrer"></a>
+                    Office Number: ${employee.officeNumber}
                 </p>
             </header>
         </div>
     </article>
-    `;
-      })
-      .join('')}
-      `  
+    `; 
 };
       
+const generateEngineer = employee => {
+ return `
+        <article class="tile is-child box">
+        <p class="title has-text-link-dark">${employee.name}</p>
+        <p class="subtitle has-text-link-dark">${employee.getRole()}</p>
+        <div class="card">
+            <header class="card">
+                <p class="card-header-title">
+                    ID: ${employee.id}
+                </p>
+                <p class="card-header-title">
+                    Email:
+                    <a href="mailto: ${employee.email}" target="_blank" rel="noopener noreferrer"> ${employee.email}</a>
+                </p>
+                <p class="card-header-title">
+                    School:
+                    <a href="https://github.com/${employee.github}" target="_blank" rel="noopener noreferrer"></a>
+                </p>
+            </header>
+        </div>
+    </article>
+      `;  
+};
+
+const chooseTeam = (employees) => {
+  var team = '';
+  employees.forEach(employee => {   
+    if (employee instanceof Manager){
+        team += generateManager(employee);
+      } else if (employee instanceof Engineer){
+        team += generateEngineer(employee);
+      } 
+    });
+  return team
+};
 
 //creates the team information
 const generateTeam = (employees) => {
+  
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -61,7 +83,8 @@ const generateTeam = (employees) => {
     
         <div class="container is fluid is-flex is-justify-content-center">
             <div class="tile is-flex-wrap-wrap">
-        ${generateEmployee(employees)}
+        ${chooseTeam(employees)}
+      
         
     </div>
     </div>

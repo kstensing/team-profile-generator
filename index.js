@@ -32,8 +32,8 @@ const start = () => {
 const addEmployee = () => {
     return inquirer
         .prompt([{
-                name: "role",
                 type: "list",
+                name: "role",
                 message: "Which type of team member would you like to add?",
                 choices: ["Manager", "Engineer", "Intern", "I don't want to add any more team members"],
             },
@@ -163,7 +163,6 @@ const addIntern = (employee) => {
 };
 
 const writeToFile = (data) => {
-    console.log("testing this")
     return new Promise((resolve, reject) => {
         fs.writeFile('./dist/index.html', data, err => {
             if (err) {
